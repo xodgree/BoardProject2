@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BoardDBBean {
 
@@ -78,6 +80,65 @@ public class BoardDBBean {
 			e1.printStackTrace();
 		}finally {
 			close(con,rs,pstmt);
-}
-}
-}
+		}
+	}
+	public int getArticleCount(String boardid){
+		int x =0;
+		String sql ="select nvl(count(*),0) " + "from board where boardid = ?";
+		Connection con = getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;	
+		int number =0;
+		try {
+		pstmt = con.prepareStatement(sql);
+		pstmt.setString(1, boardid);
+		rs = pstmt.executeQuery();
+		if(rs.next()) { x=rs.getInt(1);}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(con,rs,pstmt);
+		}
+		return x;
+	}
+	public List getArticles(int startRow, int endRow, String boardid) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List articleList = null;
+		String sql ="";
+		try {
+			conn=getConnection();
+			sql = " select * from" + "( select rownum rnum ,a.* "
+			+ " from (select num,writer,email,subject,passwd,"
+			+ "reg_date,readcount,ref,re_step,re_level,content,"
+			+ "ip from board where boardid = ? order by ref desc , re_step) "
+			+ " a ) where rnum between ? and ? ";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, boardid);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				articleList = new ArrayList();
+				do {
+					BoardDataBean article = new BoardDataBean();
+					article.setNum(rs.getInt("num"));
+					article.setWriter(rs.getString("writer"));
+					article.setEmail(rs.getString("email"));
+					article.setSubject(rs.getString("subject"));
+				article.setPasswd(rs.getString("passwd"));
+				article.setReg_date(rs.getTimestamp("reg_date"));
+				article.setReadcount(rs.getInt("readcount"));
+				article.setRef(rs.getInt("ref"));
+				article.setRe_step(rs.getInt("re_step"));
+				article.setRe_level(rs.getInt("re_level"));
+				article.setContent(rs.getString("content"));
+				article.setIp(rs.getString("ip"));
+				articleList.add(article);
+				}while(rs.next()); }	}catch(Exception ex) {
+					ex.printStackTrace();
+			}finally {close(conn,rs,pstmt);}
+				return articleList; }}
+	

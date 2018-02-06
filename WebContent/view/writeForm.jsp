@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"></head>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <html>
 <head>
 <title>°Ô½ÃÆÇ</title>
