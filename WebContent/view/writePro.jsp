@@ -21,9 +21,11 @@ if(boardid==null) boardid = "1";
 <%
 BoardDBBean dbPro = BoardDBBean.getInstance();
 
-	article.setIp(request.getRemoteAddr());
-	dbPro.insertArticle(article);
+   article.setIp(request.getRemoteAddr());
+   dbPro.insertArticle(article);
 
+    String redirectURL = "http://localhost:8080/BoardProject/view/list.jsp";
+    response.sendRedirect(redirectURL);
 %>
 </body>
 </html>

@@ -1,8 +1,11 @@
-package board;
+//이 java파일이 무슨 역할인지 정확히 모르겠다. 
 
-import java.util.Date;
+package board;		//board 패키지 안에 들어있음
 
-public class BoardDataBean {
+import java.util.Date;	//Date를 import함.
+
+public class BoardDataBean {		
+// board DB테이블 컬럼들을 private으로 선언함.
    private int num;
    private String boardid;
    private String writer;
@@ -19,7 +22,7 @@ public class BoardDataBean {
    private String filename;
    private int filesize;
    
-   
+   //getter setter을 사용하여 값을 가져오고(get) 설정함(set).
    public int getNum() {
       return num;
    }
@@ -110,7 +113,8 @@ public class BoardDataBean {
    public void setFilesize(int filesize) {
       this.filesize = filesize;
    }
-@Override
+@Override //오버라이드를 어떻게 하는거지? 어디서 이 핑크 오버라이드가 나온거지? 
+//toString => 값을 string으로 바꿈. 콘솔에 찍기위해서 만든 메소드. 근데 잘 모르겠다. 확실히는 더 찾아볼것.
 public String toString() {
 	return "BoardDataBean [num=" + num + ", boardid=" + boardid + ", writer=" + writer + ", email=" + email
 			+ ", subject=" + subject + ", passwd=" + passwd + ", reg_date=" + reg_date + ", readcount=" + readcount
