@@ -51,7 +51,7 @@
    </table>
    <%} else { %>
    <table class="w3-table-all" width="700">
-      <tr class="w3-babypink" style="background-color:hsl(0, 100%, 75%);">
+      <tr class="w3-babypink" style="background-color:rgba(255, 0, 0, 0.4);">
          <td align="center" width="50">번호</td>
          <td align="center" width="250">제목</td>
          <td align="center" width="100">작성자</td>
